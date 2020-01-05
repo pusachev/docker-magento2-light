@@ -1,0 +1,64 @@
+version: '2.1'
+services:
+  php-fpm:
+    container_name: php-fpm
+    image: pusachev/docker-php-fpm:7.2-latest
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - ../src/:/var/www/current/src:delegated
+      - ~/.composer:/root/.composer:delegated
+    environment:
+      XDEBUG_ENABLED: 1
+      REDIS_ENABLED: 1
+
+  nginx:
+    container_name: nginx
+    image: pusachev/docker-nginx:latest
+    restart: always
+    links:
+      - php-fpm
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ../src:/var/www/current/src:delegated
+      - ./config/nginx/magento2.conf.sample:/etc/nginx/magento2.conf.sample:delegated
+      - ./config/nginx/magento2.conf:/etc/nginx/sites-enabled/default:delegated
+      - ./config/nginx/magento2.conf:/etc/nginx/sites-available/default:delegated
+      - ./volumes/nginx/log:/var/log/nginx/:delegated
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3309:3306
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql:delegated
+      - ./config/mysql/init:/docker-entrypoint-initdb.d:delegated
+      - ./config/mysql/init/conf/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf:delegated
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+
+  redis:
+    container_name: redis
+    image: redis:3.2
+    restart: always
+
+volumes:
+  generated:
+  var:
+  static:
+    driver: local
