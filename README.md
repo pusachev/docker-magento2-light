@@ -48,7 +48,7 @@ cd src/ && cp ../env/env.php app/etc/env.php
 ### Get magento from composer 
 
 ```bash
-docker exec -itu www  php-fpm composer create-project --repository=https://repo.magento.com/ magento/project-community-edition /var/www/current/src
+docker exec -itu www php-fpm composer create-project --repository=https://repo.magento.com/ magento/project-community-edition /var/www/current/src
 ```
 
 ### Install sample data
