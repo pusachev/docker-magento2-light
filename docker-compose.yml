@@ -8,6 +8,7 @@ services:
       - 9000:9000
     volumes:
       - ../src/:/var/www/current/src:delegated
+      - ./config/php/xdebug.ini:/etc/php/7.2/mods-available/xdebug.ini:delegated
       - ~/.composer:/home/www/.composer:delegated
     environment:
       XDEBUG_ENABLED: 1
