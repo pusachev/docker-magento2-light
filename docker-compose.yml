@@ -64,7 +64,8 @@ services:
       - 9200:9200
     volumes:
       - es-data:/usr/share/elasticsearch/data:delegated
-    entrypoint: ./entrypoint/elasticksearch/docker-entrypoint-es-plugins.sh
+      - ./entrypoint/elasticsearch/docker-entrypoint-es-plugins.sh:/usr/sbin/docker-entrypoint-es-plugins.sh:delegated
+    entrypoint: sh /usr/sbin/docker-entrypoint-es-plugins.sh
     ulimits:
       memlock:
         soft: -1

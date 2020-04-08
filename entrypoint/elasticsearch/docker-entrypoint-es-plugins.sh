@@ -1,7 +1,7 @@
 #!/bin/bash
 # setting up prerequisites
 
-plugin install analysis-icu
-plugin install analysis-phonetic
+/usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
+/usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-phonetic
 
-exec /docker-entrypoint.sh elasticsearch
+exec /usr/local/bin/docker-entrypoint.sh elasticsearch
