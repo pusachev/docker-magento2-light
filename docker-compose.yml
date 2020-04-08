@@ -53,6 +53,28 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: root
 
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:6.8.6
+    environment:
+      - cluster.name=env_default
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - 9200:9200
+    volumes:
+      - es-data:/usr/share/elasticsearch/data:delegated
+    entrypoint: ./entrypoint/elasticksearch/docker-entrypoint-es-plugins.sh
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1G
+
+
   redis:
     container_name: redis
     image: redis:3.2
@@ -62,4 +84,5 @@ volumes:
   generated:
   var:
   static:
+  es-data:
     driver: local
