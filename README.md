@@ -60,7 +60,7 @@ docker exec -itu www php-fpm /var/www/current/src/bin/magento sampledata:deploy
 ### Install magento 
 
 ```bash
-docker exec -itu www php-fpm /var/www/current/src/bin/magento setup:install --base-url=http://magento2.test/--db-host=mysql --db-name=magento --db-user=root --db-password=root --admin-firstname=Magento --admin-lastname=User --admin-email=user@example.com --admin-user=admin --admin-password=admin123 --language=en_AU --currency=AUD --timezone=Australia/Melbourne --cleanup-database --use-rewrites=1
+docker exec -itu www php-fpm /var/www/current/src/bin/magento setup:install --base-url=http://magento2.test/ --db-host=mysql --db-name=magento --db-user=root --db-password=root --admin-firstname=Magento --admin-lastname=User --admin-email=user@example.com --admin-user=admin --admin-password=admin123 --language=en_AU --currency=AUD --timezone=Australia/Melbourne --cleanup-database --use-rewrites=1
 ```
 
 ## Config cache by redis
