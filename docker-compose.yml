@@ -26,8 +26,8 @@ services:
     volumes:
       - ../src:/var/www/current/src:delegated
       - ./config/nginx/magento2.conf.sample:/etc/nginx/magento2.conf.sample:delegated
-      - ./config/nginx/magento2.conf:/etc/nginx/sites-enabled/default:delegated
-      - ./config/nginx/magento2.conf:/etc/nginx/sites-available/default:delegated
+      - ./config/nginx/magento2.conf:/etc/nginx/sites-enabled/magento2.conf:delegated
+      - ./config/nginx/magento2.conf:/etc/nginx/sites-available/magento2.conf:delegated
       - ./volumes/nginx/log:/var/log/nginx/:delegated
     ulimits:
       memlock:
